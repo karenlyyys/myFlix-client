@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import * as loadash from "lodash";
 
 // Import statement to indicate that you need to bundle `./index.scss`
 import './index.scss';
@@ -7,8 +8,11 @@ import './index.scss';
 // Main component (will eventually use all the others)
 class MyFlixApplication extends React.Component {
   render() {
+    
+// let words = ['Good morning', 'Good afternoon'];
     return (
       <div className="my-flix">
+        {/* <div>{loadash.last(words)}</div> */}
         <div>Good morning</div>
       </div>
     );

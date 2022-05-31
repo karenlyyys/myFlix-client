@@ -13,7 +13,7 @@ class MyFlixApplication extends React.Component {
     return (
       <div className="my-flix">
         {/* <div>{loadash.last(words)}</div> */}
-        <div>Good morning</div>
+        <div><h1>Good morning</h1></div>
       </div>
     );
   }

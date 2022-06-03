@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { MainView } from './components/main-view/main-view';
 import * as loadash from "lodash";
 
 // Import statement to indicate that you need to bundle `./index.scss`
@@ -8,13 +9,8 @@ import './index.scss';
 // Main component (will eventually use all the others)
 class MyFlixApplication extends React.Component {
   render() {
-    
-// let words = ['Good morning', 'Good afternoon'];
     return (
-      <div className="my-flix">
-        {/* <div>{loadash.last(words)}</div> */}
-        <div><h1>Good morning</h1></div>
-      </div>
+      <MainView />
     );
   }
 }
@@ -24,3 +20,5 @@ const container = document.getElementsByClassName('app-container')[0];
 
 // Tells React to render your app in the root DOM element
 ReactDOM.render(React.createElement(MyFlixApplication), container);
+
+

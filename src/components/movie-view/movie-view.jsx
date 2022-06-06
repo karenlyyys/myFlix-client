@@ -18,6 +18,7 @@ export class MovieView extends React.Component {
           <span className="label">Description: </span>
           <span className="value">{movie.Description}</span>
         </div>
+        // Add button to navigate back to 'http://localhost:1234'
         </div>
     );
   }

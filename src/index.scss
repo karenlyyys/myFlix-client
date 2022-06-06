@@ -1,5 +1,27 @@
 $color: steelblue;
+$size: 150px;
 
 .my-flix {
   color: $color;
+}
+
+.app-container {
+  width: 100%;
+  display: flex;
+}
+
+.thumbnail {
+  width: $size;
+  height: $size;
+}
+
+.movie-card {
+  width: 450px;
+  margin:50px;
+}
+.main-view { 
+  flex: 10 10 10;
+  flex-direction: row;
+  width: 50%;
+  flex-wrap: wrap;
 }

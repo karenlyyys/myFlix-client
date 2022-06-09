@@ -7,6 +7,7 @@ $size: 150px;
 
 .app-container {
   width: 100%;
+  height: 100%;
   display: flex;
 }
 
@@ -15,13 +16,36 @@ $size: 150px;
   height: $size;
 }
 
-.movie-card {
-  width: 450px;
-  margin:50px;
+.label { 
+  width: 20px;
+  height: 20px;
+  font-style:italic;
 }
+
+.movie-card {
+  width: 300px;
+  margin: 50px;
+  padding: 50px;
+  top: 20px;
+  height: 350px;
+  border: solid 2px #d5d5d5;
+}
+
 .main-view { 
-  flex: 10 10 10;
+  display: flex;
   flex-direction: row;
-  width: 50%;
-  flex-wrap: wrap;
+  width: 100%;
+  height: 100%;
+}
+ 
+.thumbnail {
+  width : 250px;
+  height: 250px;
+}
+
+.backButton {
+  width : 150px;
+  height: 60px;
+  font-size: larger;
+  margin: 20px;
 }

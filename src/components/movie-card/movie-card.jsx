@@ -15,8 +15,8 @@ export class MovieCard extends React.Component {
 
     return (
       <div className="movie-card">
-        <div className="thumbnail">
-          <img src={movie.ImagePath} />
+        <div>
+          <img className='thumbnail' src={movie.ImagePath} />
         </div>
         <div className="movie-title">
           <span className="label">Title: </span>

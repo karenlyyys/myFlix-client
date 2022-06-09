@@ -1,12 +1,17 @@
 import React from 'react';
+import { Button } from 'react-bootstrap';
 
 export class MovieView extends React.Component {
 
   render() {
     const { movie } = this.props;
-
+    function onBackClick() {
+      window.location.reload()
+    }
     return (
       <div className="movie-view">
+         <Button className="backButton" onClick={() => { onBackClick(null); }}>
+         &#8592; Back</Button>
         <div className="movie-poster">
           <img src={movie.ImagePath} />
         </div>
@@ -18,7 +23,6 @@ export class MovieView extends React.Component {
           <span className="label">Description: </span>
           <span className="value">{movie.Description}</span>
         </div>
-        // Add button to navigate back to 'http://localhost:1234'
         </div>
     );
   }

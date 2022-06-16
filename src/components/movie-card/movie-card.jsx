@@ -1,6 +1,7 @@
 import React from 'react';
 import { MovieView } from '../movie-view/movie-view';
 import { Button } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
 import { Card, Col, Container, Row } from "react-bootstrap";
 
@@ -33,3 +34,12 @@ export class MovieCard extends React.Component {
   }
 
 }
+
+MovieCard.propTypes = {
+  movie: PropTypes.shape({
+    Title: PropTypes.string.isRequired,
+    Description: PropTypes.string.isRequired,
+    ImagePath: PropTypes.string.isRequired
+  }).isRequired,
+  onMovieClick: PropTypes.func.isRequired
+};

@@ -4,6 +4,7 @@ import axios from "axios";
 
 export class MovieView extends React.Component {
 
+
   render() {
     const { movie } = this.props;
     function onBackClick() {

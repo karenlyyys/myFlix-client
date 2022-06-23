@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { Button } from 'react-bootstrap';
+import Form from 'react-bootstrap/Form';
 
 
 import "../../index.scss"
@@ -64,53 +65,34 @@ import "../../index.scss"
 
 // }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 export function Login (props){
   const {onLoggedIn, login } = props;
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  function handleSubmit() {
-    /* Send a request to the server for authentication */
-    /* then call this.props.onLoggedIn(username) */
-    onLoggedIn(username);
-  }
-    return (
-      <div className="movie-card">
-        
-        <div class="container">
-        <label for="uname"><b>Username</b></label>
-        <input type="text" placeholder="Enter Username" name="uname" required 
-        onChange={(evt)=> setUsername(evt.target.value) } />
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(username, password);
+    // Send a request to the server for authentication, then call props.onLoggedIn(username)
+    login(username, password);
+  };
 
-        <label for="psw"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="psw" required
-         onChange={(evt)=> setPassword(evt.target.value) }
-         />
-      </div>
+  return (
+    <Form>
+      <Form.Group controlId="formUsername">
+        <Form.Label>Username:</Form.Label>
+        <Form.Control type="text" onChange={e => setUsername(e.target.value)} />
+      </Form.Group>
 
-        <Button className="movie-button primary" onClick={() => { login(username, password) }}>Log in</Button>
-        </div>
-    );
+      <Form.Group controlId="formPassword">
+        <Form.Label>Password:</Form.Label>
+        <Form.Control type="password" onChange={e => setPassword(e.target.value)} />
+      </Form.Group>
+      <Button variant="primary" type="submit" onClick={handleSubmit}>
+        Submit
+      </Button>
+    </Form>
+  );
+}
     // return <div className="movie-card" onClick={() => { onMovieClick(movie); }}>{movie.Title}</div>;
-  }
+  

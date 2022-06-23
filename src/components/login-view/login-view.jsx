@@ -66,7 +66,7 @@ import "../../index.scss"
 // }
 
 export function Login (props){
-  const {onLoggedIn, login } = props;
+  const {onRegister, login } = props;
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -80,7 +80,7 @@ export function Login (props){
   return (
     <Form>
       <Form.Group controlId="formUsername">
-        <Form.Label>Username:</Form.Label>
+      <Form.Label>Username:</Form.Label>
         <Form.Control type="text" onChange={e => setUsername(e.target.value)} />
       </Form.Group>
 
@@ -90,6 +90,9 @@ export function Login (props){
       </Form.Group>
       <Button variant="primary" type="submit" onClick={handleSubmit}>
         Submit
+      </Button>
+      <Button variant="primary" type="button" onClick={()=>onRegister()}>
+        Register
       </Button>
     </Form>
   );

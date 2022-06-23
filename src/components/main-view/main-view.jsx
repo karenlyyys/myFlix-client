@@ -19,11 +19,14 @@ import { RegistrationView } from '../registration-view/registration-view';
         this.state = {
           movies: [],
           selectedMovie: null,
-          user: ''
+          user: '',
+          reg: false
         }
         this.login = this.login.bind(this);
         this.getMovies = this.getMovies.bind(this);
         this.setSelectedMovie = this.setSelectedMovie.bind(this)
+        this.onRegister = this.onRegister.bind(this)
+        this.registration = this.registration.bind(this)
       }
     
      login(username, password){
@@ -37,8 +40,24 @@ import { RegistrationView } from '../registration-view/registration-view';
         })
       }
 
-      registration(username, password, birthday, email){
+      registration(username, password, email, birthday){
         //axios post request here
+        axios.post(`${url}users/register`, {
+          Username: username,
+          Password: password,
+          Email: email,
+          Birthday: birthday
+        })
+        .then(result=>{
+          alert("Registration successful!");
+          window.location.reload()
+        })
+      }
+
+      onRegister(){
+        this.setState({
+          reg: true
+        })
       }
        
       getMovies() {
@@ -71,9 +90,10 @@ import { RegistrationView } from '../registration-view/registration-view';
       }
 
     render() {
-      const { movies, selectedMovie, user } = this.state;
+      const { movies, selectedMovie, user, reg } = this.state;
       console.log(movies)
-      if(!user) return <Login login={this.login} />
+      if(reg) return <RegistrationView registration={this.registration} />
+      if(!user) return <Login login={this.login} onRegister={this.onRegister} />
       if (selectedMovie) return <MovieView movie={selectedMovie} />;
     
       if (movies.length === 0) return <div className="main-view">The list is empty!</div>;

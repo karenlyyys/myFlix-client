@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Button } from 'react-bootstrap';
+import Form from 'react-bootstrap/Form';
 import './registration-view.scss';
 
 //user registration form taking necessary user details
@@ -11,14 +13,14 @@ export function RegistrationView(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(username, password, email, birthday);
-    props.onRegister(false);
+    props.registration(username, password, email, birthday);
   };
 
   return (
     <form>
       <label>
         Username:
-        <input
+        <Form.Control
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
@@ -26,7 +28,7 @@ export function RegistrationView(props) {
       </label>
       <label>
         Password:
-        <input
+        <Form.Control
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -34,7 +36,7 @@ export function RegistrationView(props) {
       </label>
       <label>
         Email:
-        <input
+        <Form.Control
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -42,15 +44,18 @@ export function RegistrationView(props) {
       </label>
       <label>
         Birthday:
-        <input
+        <Form.Control
           type="date"
           value={birthday}
           onChange={(e) => setBirthday(e.target.value)}
         />
       </label>
-      <button type="submit" onClick={handleSubmit}>
+      <Button variant="primary" type="submit" onClick={handleSubmit}>
         Submit
-      </button>
+      </Button>
+      <Button variant="primary" type="button" onClick={()=>window.location.reload()}>
+        Log in
+      </Button>
     </form>
   );
 }

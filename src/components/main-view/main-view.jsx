@@ -115,7 +115,7 @@ import { RegistrationView } from '../registration-view/registration-view';
             <MovieCard key={movie._id} movie={movie} onMovieClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }}/>
           ))}
           </Col>
-        </Row>
+        </Row>  
       )
     }
   </div>

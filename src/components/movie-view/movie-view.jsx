@@ -1,8 +1,20 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import axios from "axios";
+import Col from 'react-bootstrap/Col';
 
 export class MovieView extends React.Component {
+
+  keypressCallback(event) {
+    console.log(event.key);
+}
+
+  componentDidMount() {
+    document.addEventListener('keypress', this.keypressCallback);
+}
+componentWillUnmount() {
+    document.removeEventListener('keypress', this.keypressCallback);
+}
 
 
   render() {
@@ -25,6 +37,7 @@ export class MovieView extends React.Component {
           <span className="label">Description: </span>
           <span className="value">{movie.Description}</span>
         </div>
+        <button onClick={() => { onBackClick(null); }}>Back</button>
         </div>
     );
   }

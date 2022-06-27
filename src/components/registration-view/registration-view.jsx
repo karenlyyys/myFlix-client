@@ -17,10 +17,11 @@ export function RegistrationView(props) {
   };
 
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <label>
         Username:
         <Form.Control
+        required
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
@@ -30,6 +31,7 @@ export function RegistrationView(props) {
         Password:
         <Form.Control
           type="password"
+          required
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
@@ -37,6 +39,7 @@ export function RegistrationView(props) {
       <label>
         Email:
         <Form.Control
+        required
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -45,12 +48,13 @@ export function RegistrationView(props) {
       <label>
         Birthday:
         <Form.Control
+        required
           type="date"
           value={birthday}
           onChange={(e) => setBirthday(e.target.value)}
         />
       </label>
-      <Button variant="primary" type="submit" onClick={handleSubmit}>
+      <Button variant="primary" type="submit">
         Submit
       </Button>
       <Button variant="primary" type="button" onClick={()=>window.location.reload()}>

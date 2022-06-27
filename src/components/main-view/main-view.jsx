@@ -7,12 +7,11 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 import "../../index.scss"
-import { Container } from 'react-bootstrap';
+import { Button, Container } from 'react-bootstrap';
 import { Login } from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
 
- const url = 'https://movie-api-karelyss.herokuapp.com/';
-
+const url = 'https://movie-api-karelyss.herokuapp.com/'
     export class MainView extends React.Component{
       constructor() {
         super();
@@ -28,8 +27,8 @@ import { RegistrationView } from '../registration-view/registration-view';
         this.onRegister = this.onRegister.bind(this)
         this.registration = this.registration.bind(this)
       }
-    
-     login(username, password){
+
+      login(username, password){
         axios.post(`${url}login?Username=${username}&Password=${password}`)
         .then(result=>{
           localStorage.setItem('token', result.data.token)
@@ -61,11 +60,29 @@ import { RegistrationView } from '../registration-view/registration-view';
       }
        
       getMovies() {
-        axios.get(`${url}movies`, {
-          headers : {
-            Authorization : 'Bearer '+localStorage.getItem('token')
-          }
-        }).then(result=>this.setState({movies: result.data}) )
+        axios.get('https://movie-api-karelyss.herokuapp.com/movies', {
+          headers: { Authorization: `Bearer ${localStorage.getItem('token')}`}
+        })
+        .then(response => {
+          // Assign the result to the state
+          this.setState({
+            movies: response.data
+          });
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      }
+
+      onLoggedIn(authData) {
+        console.log(authData);
+        this.setState({
+          user: authData.user.Username
+        });
+      
+        localStorage.setItem('token', authData.token);
+        localStorage.setItem('user', authData.user.Username);
+        this.getMovies(authData.token);
       }
 
     componentDidMount(){
@@ -83,6 +100,13 @@ import { RegistrationView } from '../registration-view/registration-view';
         // this.getMovies()
     }
 
+    onLoggedOut() {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      window.location.reload()
+    }
+    
+
       setSelectedMovie(newSelectedMovie) {
         this.setState({
           selectedMovie: newSelectedMovie
@@ -99,6 +123,11 @@ import { RegistrationView } from '../registration-view/registration-view';
       if (movies.length === 0) return <div className="main-view">The list is empty!</div>;
     
       return (
+        <div>
+          <header>
+            <h1 style={{color: 'red'}}>MyFlix</h1> 
+            <Button variant='danger' style={{float: 'right', marginTop: -45}} type="button" onClick={this.onLoggedOut}>Log out</Button>
+          </header>
         <div className="main-view">
           {selectedMovie
             ? (
@@ -118,6 +147,7 @@ import { RegistrationView } from '../registration-view/registration-view';
         </Row>  
       )
     }
+    </div>
   </div>
 );
   }

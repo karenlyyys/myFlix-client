@@ -2,6 +2,7 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 import axios from "axios";
 import Col from 'react-bootstrap/Col';
+import "./movie-view.scss";
 
 export class MovieView extends React.Component {
 
@@ -24,8 +25,8 @@ componentWillUnmount() {
     }
     return (
       <div className="movie-view">
-         <Button className="backButton" onClick={() => { onBackClick(null); }}>
-         &#8592; Back</Button>
+         {/* <Button className="backButton" onClick={() => { onBackClick(null); }}>
+         &#8592; Back</Button> */}
         <div className="movie-poster">
           <img src={movie.ImagePath} />
         </div>
@@ -37,7 +38,7 @@ componentWillUnmount() {
           <span className="label">Description: </span>
           <span className="value">{movie.Description}</span>
         </div>
-        <button onClick={() => { onBackClick(null); }}>Back</button>
+        <button className="backButton" onClick={() => { onBackClick(null); }}>Back</button>
         </div>
     );
   }

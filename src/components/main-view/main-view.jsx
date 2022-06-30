@@ -5,11 +5,12 @@ import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import "../../index.scss"
 import { Button, Container } from 'react-bootstrap';
 import { Login } from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
+import MoviesList from "../movies-view/movies-view";
 
 const url = 'https://movie-api-karelyss.herokuapp.com/'
     export class MainView extends React.Component{
@@ -36,6 +37,7 @@ const url = 'https://movie-api-karelyss.herokuapp.com/'
             user: result.data.user.Username
           });
           this.getMovies();
+          window.location.replace("/movies")
         })
       }
 
@@ -64,6 +66,7 @@ const url = 'https://movie-api-karelyss.herokuapp.com/'
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}`}
         })
         .then(response => {
+          console.log(response.data)
           // Assign the result to the state
           this.setState({
             movies: response.data
@@ -97,7 +100,7 @@ const url = 'https://movie-api-karelyss.herokuapp.com/'
       //   });
 
         // this.login('jondoe2', 'passcode1')
-        // this.getMovies()
+        this.getMovies()
     }
 
     onLoggedOut() {
@@ -113,41 +116,44 @@ const url = 'https://movie-api-karelyss.herokuapp.com/'
         });
       }
 
+  //     MoviesList = ({movies}) => {
+  //       return <div className="main-view">
+  //       {this.state.selectedMovie
+  //         ? (
+  //           <Row className="justify-content-md-center">
+  //             <Col md={8}>
+  //             <MovieView movie={this.state.selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }}/>
+  //           </Col>
+  //           </Row>
+  //         )
+  //         : (
+  //           <Row className="justify-content-md-center">
+  //             <Col md={8}>
+  //       {movies.map(movie => (
+  //         <MovieCard key={movie._id} movie={movie} onMovieClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }}/>
+  //       ))}
+  //       </Col>
+  //     </Row>  
+  //   )
+  // }
+  // </div> 
+  //     }
+
     render() {
       const { movies, selectedMovie, user, reg } = this.state;
-      console.log(movies)
-      if(reg) return <RegistrationView registration={this.registration} />
-      if(!user) return <Login login={this.login} onRegister={this.onRegister} />
-      if (selectedMovie) return <MovieView movie={selectedMovie} />;
-    
-      if (movies.length === 0) return <div className="main-view">The list is empty!</div>;
-    
       return (
         <div>
           <header>
             <h1 style={{color: 'red'}}>MyFlix</h1> 
             <Button variant='danger' style={{float: 'right', marginTop: -45}} type="button" onClick={this.onLoggedOut}>Log out</Button>
           </header>
-        <div className="main-view">
-          {selectedMovie
-            ? (
-              <Row className="justify-content-md-center">
-                <Col md={8}>
-                <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }}/>
-              </Col>
-              </Row>
-            )
-            : (
-              <Row className="justify-content-md-center">
-                <Col md={8}>
-          {movies.map(movie => (
-            <MovieCard key={movie._id} movie={movie} onMovieClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }}/>
-          ))}
-          </Col>
-        </Row>  
-      )
-    }
-    </div>
+          <Router>
+            <Routes>
+              <Route path="/" extact={true} element={<Login login={this.login} />} />
+              <Route path="/register" extact={true} element={<RegistrationView registration={this.registration} />} />
+              <Route path="/movies" extact={true} element={<MoviesList movies={movies} selectedMovie={this.state.selectedMovie} setSelectedMovie={this.setSelectedMovie} />} />
+            </Routes>
+          </Router>
   </div>
 );
   }

@@ -11,6 +11,7 @@ import { Button, Container } from 'react-bootstrap';
 import { Login } from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
 import MoviesList from "../movies-view/movies-view";
+import { DirectorView } from '../director-view/director-view';
 
 const url = 'https://movie-api-karelyss.herokuapp.com/'
     export class MainView extends React.Component{
@@ -116,29 +117,7 @@ const url = 'https://movie-api-karelyss.herokuapp.com/'
         });
       }
 
-  //     MoviesList = ({movies}) => {
-  //       return <div className="main-view">
-  //       {this.state.selectedMovie
-  //         ? (
-  //           <Row className="justify-content-md-center">
-  //             <Col md={8}>
-  //             <MovieView movie={this.state.selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }}/>
-  //           </Col>
-  //           </Row>
-  //         )
-  //         : (
-  //           <Row className="justify-content-md-center">
-  //             <Col md={8}>
-  //       {movies.map(movie => (
-  //         <MovieCard key={movie._id} movie={movie} onMovieClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }}/>
-  //       ))}
-  //       </Col>
-  //     </Row>  
-  //   )
-  // }
-  // </div> 
-  //     }
-
+  
     render() {
       const { movies, selectedMovie, user, reg } = this.state;
       return (
@@ -152,6 +131,8 @@ const url = 'https://movie-api-karelyss.herokuapp.com/'
               <Route path="/" extact={true} element={<Login login={this.login} />} />
               <Route path="/register" extact={true} element={<RegistrationView registration={this.registration} />} />
               <Route path="/movies" extact={true} element={<MoviesList movies={movies} selectedMovie={this.state.selectedMovie} setSelectedMovie={this.setSelectedMovie} />} />
+              {/* <Route path="/director" extact={true} element={<DirectorView director={director} onBackClick ={onBackClick} />} />
+              <Route path="/genre" extact={true} element={<GenreView genre={genre} onBackClick ={onBackClick} />} /> */}
             </Routes>
           </Router>
   </div>

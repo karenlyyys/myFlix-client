@@ -6,9 +6,20 @@ import './director-view.scss';
 
 
 export class DirectorView extends React.Component {
+    state = {
+      director: {}
+    }
+    componentDidMount() {
+      const { movies, selectedMovie } = this.props;
+      const directorName = window.location.href.split("/directors/")[1].replace("%20", " ");
+      const director = movies.find(m=>m.Director.Name == directorName).Director
+      this.setState({
+        director
+      })
+    }
     render() {
-        const { director, onBackClick } = this.props;
-
+            const { onBackClick } = this.props;
+            const { director } = this.state;
             return (
               <Card text='black' className="directorCard">
                 <Card.Header className="directorName">{director.Name}</Card.Header>

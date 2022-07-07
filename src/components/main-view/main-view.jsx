@@ -12,6 +12,8 @@ import { Login } from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
 import MoviesList from "../movies-view/movies-view";
 import { DirectorView } from '../director-view/director-view';
+import { GenreView } from '../genre-view/genre-view';
+import { ProfileView } from '../profile-view/profile-view';
 
 const url = 'https://movie-api-karelyss.herokuapp.com/'
     export class MainView extends React.Component{
@@ -33,7 +35,9 @@ const url = 'https://movie-api-karelyss.herokuapp.com/'
       login(username, password){
         axios.post(`${url}login?Username=${username}&Password=${password}`)
         .then(result=>{
+          console.log(result)
           localStorage.setItem('token', result.data.token)
+          localStorage.setItem('user', result.data.user.Username)
           this.setState({
             user: result.data.user.Username
           });
@@ -67,7 +71,7 @@ const url = 'https://movie-api-karelyss.herokuapp.com/'
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}`}
         })
         .then(response => {
-          console.log(response.data)
+    
           // Assign the result to the state
           this.setState({
             movies: response.data
@@ -90,17 +94,7 @@ const url = 'https://movie-api-karelyss.herokuapp.com/'
       }
 
     componentDidMount(){
-      // axios.get('https://movie-api-karelyss.herokuapp.com/movies')
-      //   .then(response => {
-      //     this.setState({
-      //       movies: response.data
-      //     });
-      //   })
-      //   .catch(error => {
-      //     console.log(error);
-      //   });
-
-        // this.login('jondoe2', 'passcode1')
+    
         this.getMovies()
     }
 
@@ -117,6 +111,7 @@ const url = 'https://movie-api-karelyss.herokuapp.com/'
         });
       }
 
+      onBackClick = () => window.location.replace("/movies");
   
     render() {
       const { movies, selectedMovie, user, reg } = this.state;
@@ -124,6 +119,7 @@ const url = 'https://movie-api-karelyss.herokuapp.com/'
         <div>
           <header>
             <h1 style={{color: 'red'}}>MyFlix</h1> 
+            <h1 style={{color: 'red', marginLeft:"40%"}}>{localStorage.getItem("user")}</h1> 
             <Button variant='danger' style={{float: 'right', marginTop: -45}} type="button" onClick={this.onLoggedOut}>Log out</Button>
           </header>
           <Router>
@@ -131,8 +127,9 @@ const url = 'https://movie-api-karelyss.herokuapp.com/'
               <Route path="/" extact={true} element={<Login login={this.login} />} />
               <Route path="/register" extact={true} element={<RegistrationView registration={this.registration} />} />
               <Route path="/movies" extact={true} element={<MoviesList movies={movies} selectedMovie={this.state.selectedMovie} setSelectedMovie={this.setSelectedMovie} />} />
-              {/* <Route path="/director" extact={true} element={<DirectorView director={director} onBackClick ={onBackClick} />} />
-              <Route path="/genre" extact={true} element={<GenreView genre={genre} onBackClick ={onBackClick} />} /> */}
+              <Route path="/directors/:name" extact={true} element={<DirectorView selectedMovie={selectedMovie} movies={movies}onBackClick={this.onBackClick}  />} />
+              <Route path="/genres/:name" extact={true} element={<GenreView movies={movies} onBackClick={this.onBackClick} />} />
+              <Route path="/user/:name" extact={true} element={<ProfileView user={this.state.user} />} />
             </Routes>
           </Router>
   </div>

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import './registration-view.scss';
+import axios from "axios";
 
 //user registration form taking necessary user details
 export function RegistrationView(props) {
@@ -61,5 +62,8 @@ export function RegistrationView(props) {
         Log in
       </Button>
     </form>
+
+
+    
   );
 }

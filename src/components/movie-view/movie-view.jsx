@@ -3,6 +3,9 @@ import { Button } from 'react-bootstrap';
 import axios from "axios";
 import Col from 'react-bootstrap/Col';
 import "./movie-view.scss";
+import { GenreView } from '../genre-view/genre-view';
+import { DirectorView } from '../director-view/director-view';
+import { ProfileView } from '../profile-view/profile-view';
 
 export class MovieView extends React.Component {
 

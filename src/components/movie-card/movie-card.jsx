@@ -1,5 +1,7 @@
 import React from 'react';
 import { MovieView } from '../movie-view/movie-view';
+import { DirectorView } from '../director-view/director-view';
+import { GenreView } from '../genre-view/genre-view';
 import { Button } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 import PropTypes from 'prop-types';
@@ -20,10 +22,18 @@ import { Link } from 'react-router-dom';
           <Card.Body>
             <Card.Title>{movie.Title}</Card.Title>
             <Card.Text>{movie.Description}</Card.Text>
-            <Card.Text>Director: {movie.Director.Name}</Card.Text>
-            <Card.Text>Genre: {movie.Genre.Name}</Card.Text>
-            <Button onClick={() => onMovieClick(movie)} variant="link">Open</Button>
-          </Card.Body>
+            <Card.Text>Director:
+            <Link to={`/directors/${movie.Director.Name}`}>
+  <Button variant="link">{movie.Director.Name}</Button>
+</Link> </Card.Text>
+           
+            <Card.Text>Genre: 
+            <Link to={`/genres/${movie.Genre.Name}`}>
+  <Button variant="link">{movie.Genre.Name}</Button>
+</Link>
+</Card.Text>
+            
+           </Card.Body>
         </Card>
       );
     }

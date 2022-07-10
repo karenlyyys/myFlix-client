@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import './profile-view.scss';
+import { Form, Button, Card, CardGroup, Container, Col, Row, Modal } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { MovieCard } from '../movie-card/movie-card';
+
 
 
 export function ProfileView(props) {
-  const u = window.location.href.split("/user/")[1].replace("%20", " ");
+  const u = localStorage.getItem("user");
   const [ username, setUsername ] = useState(u);
   const [ birthday, setBirthday ] = useState("");
   const [ email, setEmail ] = useState("");
@@ -15,15 +18,17 @@ export function ProfileView(props) {
   const [ favouriteMovies, setFavouriteMovies ] = useState([]);
   const currentUser = localStorage.getItem('user');
   const token = localStorage.getItem('token');
-
  
   const updateUser = () => {
-    axios.put('https://movie-api-karelyss.herokuapp.com/user/'+u, {
+    axios.put('https://movie-api-karelyss.herokuapp.com/users/'+u, {}, {
       headers: { Authorization: `Bearer ${token}`}
     })
     .then(response => {
-      setUser(response.data);
+      setUsername(response.data.Username)
+      setBirthday(response.data.Birthday)
+      setEmail(response.data.Email)
       setFavouriteMovies(response.data.FavouriteMovies)
+      alert('Your profile has been updated');
     })
     .catch(error => console.error(error))
   }
@@ -31,6 +36,8 @@ export function ProfileView(props) {
   useEffect(() => {
     // getUser();
   }, [])
+
+ 
 
   const handleDelete = () => {
     axios.delete(`https://movime-api.herokuapp.com/users/${currentUser}`, {
@@ -66,9 +73,9 @@ export function ProfileView(props) {
             <Form.Control onChange={(e) => setPassword(e.target.value)} type="password" value={password} placeholder="Password" />
           </Form.Group>
 
-          {/* <Button variant="warning" onClick={updateUser}>
-            Update you profile
-          </Button> */}
+          <Button variant="warning" onClick={updateUser}>
+            Update your profile
+          </Button>
 
           {/* This button triggers a modal that's called bellow   */}
           <Button className='deleteButton' variant="link" onClick={handleDelete}>

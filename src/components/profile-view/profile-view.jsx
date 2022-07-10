@@ -15,7 +15,7 @@ export function ProfileView(props) {
   const [ email, setEmail ] = useState("");
   const [ password, setPassword ] = useState("");
   const [ movies, setMovies ] = useState(props.movies);
-  const [ favouriteMovies, setFavouriteMovies ] = useState([]);
+  const [ favouriteMovies, setFavouriteMovies ] = useState(...props.userFavs);
   const currentUser = localStorage.getItem('user');
   const token = localStorage.getItem('token');
  
@@ -50,7 +50,12 @@ export function ProfileView(props) {
     }).
     catch(error => console.error(error))
   }
-// const {username, birthday, email, password} = user;
+
+const Moviesfavs = ({userFavs, movies}) => {
+  return movies.length === 0 ? (<div>No favorite movies</div>) 
+  : movies.filter(x=>userFavs.includes(x._id)).map(y=><MovieCard movie={y} /> )
+
+}
   return (
     <>
       <Container>
@@ -83,6 +88,10 @@ export function ProfileView(props) {
           </Button>
         </Form>
 
+<hr width="100%" />
+
+<br />
+<Moviesfavs movies={movies} userFavs={favouriteMovies} />
 
       </Container>
     </>

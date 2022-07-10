@@ -22,6 +22,7 @@ const url = 'https://movie-api-karelyss.herokuapp.com/'
         super();
         this.state = {
           movies: [],
+          userFavs: [],
           selectedMovie: null,
           user: '',
           reg: false
@@ -86,7 +87,8 @@ const url = 'https://movie-api-karelyss.herokuapp.com/'
       onLoggedIn(authData) {
         console.log(authData);
         this.setState({
-          user: authData.user.Username
+          user: authData.user.Username,
+          userFavs: authData.user.FavoriteMovies
         });
       
         localStorage.setItem('token', authData.token);
@@ -140,7 +142,7 @@ const url = 'https://movie-api-karelyss.herokuapp.com/'
               <Route path="/movies" extact={true} element={<MoviesList movies={movies} selectedMovie={this.state.selectedMovie} setSelectedMovie={this.setSelectedMovie} />} />
               <Route path="/directors/:name" extact={true} element={<DirectorView selectedMovie={selectedMovie} movies={movies}onBackClick={this.onBackClick}  />} />
               <Route path="/genres/:name" extact={true} element={<GenreView movies={movies} onBackClick={this.onBackClick} />} />
-              <Route path="/user/profile" extact={true} element={<ProfileView user={this.state.user} />} />
+              <Route path="/user/profile" extact={true} element={<ProfileView user={this.state.user} movies={movies} userFavs={this.state.userFavs} />} />
             </Routes>
           </Router>
   </div>

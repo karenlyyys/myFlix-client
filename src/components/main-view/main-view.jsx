@@ -14,7 +14,9 @@ import MoviesList from "../movies-view/movies-view";
 import { DirectorView } from '../director-view/director-view';
 import { GenreView } from '../genre-view/genre-view';
 import { ProfileView } from '../profile-view/profile-view';
-import { Link } from 'react-router-dom'
+
+import {setMovies} from '../../actions';
+import store from "../../store";
 
 const url = 'https://movie-api-karelyss.herokuapp.com/'
     export class MainView extends React.Component{
@@ -75,9 +77,10 @@ const url = 'https://movie-api-karelyss.herokuapp.com/'
         .then(response => {
     
           // Assign the result to the state
-          this.setState({
-            movies: response.data
-          });
+          // this.setState({
+          //   movies: response.data
+          // });
+          store.dispatch(setMovies(response.data));
         })
         .catch(function (error) {
           console.log(error);
@@ -120,22 +123,22 @@ const url = 'https://movie-api-karelyss.herokuapp.com/'
       const { movies, selectedMovie, user, reg, users } = this.state;
       return (
         <div>
-           <Router>
+           {/* <Router> */}
           <header>
-          <Link to={`/movies`}>
+          <a href={`/movies`}>
             <h1 style={{color: 'red'}}>
            MovieFlix</h1> 
-            </Link>
+            </a>
            
-            <Link to={`/user/profile`}>
+            <a href={`/user/profile`}>
             <h1 style={{color: 'red', marginLeft:"40%"}}>
             {localStorage.getItem("user")}</h1> 
-            </Link>
+            </a>
          
 
             <Button variant='danger' style={{float: 'right', marginTop: -45}} type="button" onClick={this.onLoggedOut}>Log out</Button>
           </header>
-    
+          <Router>     
             <Routes>
               <Route path="/" extact={true} element={<Login login={this.login} />} />
               <Route path="/register" extact={true} element={<RegistrationView registration={this.registration} />} />

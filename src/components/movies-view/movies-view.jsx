@@ -4,8 +4,12 @@ import { MovieView } from '../movie-view/movie-view';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Button, Container } from 'react-bootstrap';
+import store from "../../store";
 
-const MoviesList = ({movies, selectedMovie, setSelectedMovie}) => {
+console.log('State after toggling first todo', store.getState());
+
+const MoviesList = ({selectedMovie, setSelectedMovie}) => {
+  const movies = store.getState();
   return <div className="main-view">
   {selectedMovie
     ? (

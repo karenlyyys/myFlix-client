@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { LoginView } from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
 import { MovieCard } from '../movie-card/movie-card';
@@ -118,10 +118,12 @@ class MainView extends React.Component {
 
     return (
       <Router>
+    
         {/* Navbar view, show on all pages when user is logged in */}
         <NavbarView user={user}></NavbarView>
         <Row className="main-view justify-content-md-center">
           {/* Default route '/' */}
+          <Routes>
           <Route
             exact
             path="/"
@@ -229,7 +231,9 @@ class MainView extends React.Component {
               );
             }}
           />
+            </Routes>
         </Row>
+      
       </Router>
     );
   }

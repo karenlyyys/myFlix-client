@@ -1,44 +1,72 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
-import axios from "axios";
-import Col from 'react-bootstrap/Col';
+import axios from 'axios';
+import './movie-view.scss';
+import { Card, Col, Container, Row, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 export class MovieView extends React.Component {
+  addToFavorite(movieId) {
+    const token = localStorage.getItem('token');
+    console.log(token);
 
-  keypressCallback(event) {
-    console.log(event.key);
-}
-
-  componentDidMount() {
-    document.addEventListener('keypress', this.keypressCallback);
-}
-componentWillUnmount() {
-    document.removeEventListener('keypress', this.keypressCallback);
-}
-
+    axios
+      .post(
+        `https://movie-api-karelyss.herokuapp.com/users/${localStorage.user}/movies/${movieId}`,
+        {},
+        {
+          headers: { Authorization: 'Bearer ' + localStorage.getItem('token') },
+        }
+      )
+      .then((response) => {
+        alert('Movie added to favorites');
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
 
   render() {
-    const { movie } = this.props;
-    function onBackClick() {
-      window.location.reload()
-    }
+    const { movie, onBackClick } = this.props;
+
     return (
-      <div className="movie-view">
-         <Button className="backButton" onClick={() => { onBackClick(null); }}>
-         &#8592; Back</Button>
-        <div className="movie-poster">
-          <img src={movie.ImagePath} />
-        </div>
-        <div className="movie-title">
-          <span className="label">Title: </span>
-          <span className="value">{movie.Title}</span>
-        </div>
-        <div className="movie-description">
-          <span className="label">Description: </span>
-          <span className="value">{movie.Description}</span>
-        </div>
-        <button onClick={() => { onBackClick(null); }}>Back</button>
-        </div>
+      <Container>
+        <Row>
+          <Col>
+            <img src={movie.ImagePath} style={{ height: '400px' }} />
+          </Col>
+          <Col>
+            <h1 style={{ color: 'white' }}>{movie.Title}</h1>
+            <h6>{movie.Description}</h6>
+            <Link to={`/director/${movie.Director.Name}`}>
+              <Button variant="light" className="movie-view-button">
+                Director
+              </Button>
+            </Link>
+            <Link to={`/genre/${movie.Genre.Name}`}>
+              <Button variant="light" className="movie-view-button">
+                Genre
+              </Button>
+            </Link>
+          </Col>
+        </Row>
+        <Button
+          variant="light"
+          onClick={() => this.addToFavorite(movie._id)}
+          className="movie-view-button"
+        >
+          Add to Favorites
+        </Button>
+        <Button
+          variant="secondary"
+          onClick={() => {
+            onBackClick(null);
+          }}
+          className="movie-view-button"
+        >
+          Back
+        </Button>
+      </Container>
     );
   }
+  asd;
 }

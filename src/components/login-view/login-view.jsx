@@ -1,101 +1,104 @@
-import React, {useState} from 'react';
-import { Button } from 'react-bootstrap';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import './login-view.scss';
 
-
-import "../../index.scss"
-
-// export class Login extends React.Component {
-//   constructor(props) {
-//     super(props);
- 
-//     this.state = {
-//         username: '',
-//         password: ''
-//     };
-
-//     this.onUsernameChange = this.onUsernameChange.bind(this);
-//     this.onPasswordChange = this.onPasswordChange.bind(this);
-//     this.handleSubmit = this.handleSubmit.bind(this);
-//   }
-
-//   onUsernameChange(event) {
-//     this.setState({
-//       username: event.target.value
-//     });
-//   }
-
-//   onPasswordChange(event) {
-//     this.setState({
-//       password: event.target.value
-//     });
-//   }
-
-//   handleSubmit() {
-//     const { username, password } = this.state;
-//     console.log(username, password);
-//     /* Send a request to the server for authentication */
-//     /* then call this.props.onLoggedIn(username) */
-//     // this.props.onLoggedIn(username);
-//   }
-
-  
-//   render() {
-//     const { login } = this.props;
-
-//     return (
-//       <div className="movie-card">
-        
-//         <div class="container">
-//         <label for="uname"><b>Username</b></label>
-//         <input type="text" placeholder="Enter Username" name="uname" required 
-//         onChange={(evt)=> this.setState({username: evt.target.value}) } />
-
-//         <label for="psw"><b>Password</b></label>
-//         <input type="password" placeholder="Enter Password" name="psw" required
-//          onChange={(evt)=> this.setState({password: evt.target.value}) }
-//          />
-//       </div>
-
-//         <Button className="movie-button primary" onClick={() => { login(this.state.username, this.state.password) }}>Log in</Button>
-//         </div>
-//     );
-//     // return <div className="movie-card" onClick={() => { onMovieClick(movie); }}>{movie.Title}</div>;
-//   }
-
-// }
-
-export function Login (props){
-  const {onRegister, login } = props;
+export function LoginView(props) {
+  // call useState() with empty initial value
+  // returns an array of paried values that you detructure
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [usernameErr, setUsernameErr] = useState('');
+  const [passwordErr, setPasswordErr] = useState('');
+
+  const validate = () => {
+    let isReq = true;
+
+    if (!username) {
+      setUsernameErr('Username Required');
+      isReq = false;
+    } else if (username.length < 2) {
+      setUsernameErr('Username must be 2 characters long');
+      isReq = false;
+    }
+
+    if (!password) {
+      setPasswordErr('Password Required');
+      isReq = false;
+    } else if (password.length < 6) {
+      setPassword('Password must be 6 characters long');
+      isReq = false;
+    }
+
+    return isReq;
+  };
 
   const handleSubmit = (e) => {
+    // {e} prevents default refresh/change of the page from handleSubmit()
     e.preventDefault();
-    console.log(username, password);
-    // Send a request to the server for authentication, then call props.onLoggedIn(username)
-    login(username, password);
+    const isReq = validate();
+
+    if (isReq) {
+      // POST request by passing username and password
+      axios
+        .post('https://movie-api-karelyss.herokuapp.com/login', {
+          Username: username,
+          Password: password,
+        })
+        .then((response) => {
+          // data includes JWT token + username
+          const data = response.data;
+          props.onLoggedIn(data);
+        })
+        .catch((e) => {
+          console.log(e);
+          alert('Username or Password incorrect');
+        });
+    }
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Form.Group controlId="formUsername">
-      <Form.Label>Username:</Form.Label>
-        <Form.Control required type="text" onChange={e => setUsername(e.target.value)} />
+    <Form>
+      <Form.Group className="mb-3 mx-5" controlId="formUsername" size="lg">
+        <Form.Label>Username:</Form.Label>
+        <Form.Control
+          type="text"
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        {usernameErr && <p>{usernameErr}</p>}
       </Form.Group>
-
-      <Form.Group controlId="formPassword">
+      <Form.Group className="mb-3 mx-5" controlId="formPassword">
         <Form.Label>Password:</Form.Label>
-        <Form.Control required type="password" onChange={e => setPassword(e.target.value)} />
+        <Form.Control
+          type="password"
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        {passwordErr && <p>{passwordErr}</p>}
       </Form.Group>
-      <Button variant="primary" type="submit">
-        Submit
+      <Button
+        variant="light"
+        type="submit"
+        className="login-view-button mx-5"
+        onClick={handleSubmit}
+      >
+        Sign In
       </Button>
-      <Button variant="primary" type="button" onClick={()=>onRegister()}>
-        Register
-      </Button>
+      {/* <Link to="/register">
+        <Button variant="light" type="button" className="login-view-button">
+          Sign Up
+        </Button>
+      </Link> */}
     </Form>
   );
 }
-    // return <div className="movie-card" onClick={() => { onMovieClick(movie); }}>{movie.Title}</div>;
-  
+
+LoginView.propTypes = {
+  user: PropTypes.shape({
+    username: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+  }),
+  onLoggedIn: PropTypes.func.isRequired,
+};

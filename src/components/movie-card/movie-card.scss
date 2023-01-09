@@ -1,0 +1,21 @@
+$primary-color: #fffffe;
+$button-color: #ff8906;
+
+.card {
+  padding: 5px;
+  margin: 5px;
+}
+
+.card-body {
+  height: 300px;
+  color: $primary-color;
+}
+
+.card-text {
+  height: 180px;
+  overflow: auto;
+}
+
+Button {
+  color: $button-color;
+}

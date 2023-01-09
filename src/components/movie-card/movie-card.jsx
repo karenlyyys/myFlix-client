@@ -1,39 +1,44 @@
 import React from 'react';
-import { MovieView } from '../movie-view/movie-view';
-import { Button } from 'react-bootstrap';
-import Card from 'react-bootstrap/Card';
 import PropTypes from 'prop-types';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+import './movie-card.scss';
+import { CardGroup } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
-//import { Card, Col, Container, Row } from "react-bootstrap";
+export class MovieCard extends React.Component {
+  render() {
+    const { movie, onMovieClick } = this.props;
 
-import "../../index.scss"
- 
-  
-  export class MovieCard extends React.Component {
-    render() {
-      const { movie, onMovieClick } = this.props;
-  
-      return (
-          <Card>
-          <Card.Img variant="top" src={movie.ImagePath} />
-          <Card.Body>
+    return (
+      <CardGroup>
+        <Card className="card" bg="dark">
+          <Card.Img
+            variant="top"
+            src={movie.ImagePath}
+            style={{ height: '400px' }}
+          />
+          <Card.Body className="card-body">
             <Card.Title>{movie.Title}</Card.Title>
-            <Card.Text>{movie.Description}</Card.Text>
-            <Button onClick={() => onMovieClick(movie)} variant="link">Open</Button>
+            <Card.Text className="card-text">{movie.Description}</Card.Text>
+            <Link to={`/movies/${movie._id}`}>
+              <Button variant="light">Details</Button>
+            </Link>
           </Card.Body>
         </Card>
-      );
-    }
+      </CardGroup>
+    );
   }
+}
 
-  
-    // return <div className="movie-card" onClick={() => { onMovieClick(movie); }}>{movie.Title}</div>;
-
+// props object must include a movie object (shape({}))
+// movie prop may contain a Title, must be type string
+// props object must contain onMoiveClick() function
 MovieCard.propTypes = {
   movie: PropTypes.shape({
     Title: PropTypes.string.isRequired,
     Description: PropTypes.string.isRequired,
-    ImagePath: PropTypes.string.isRequired
+    ImagePath: PropTypes.string.isRequired,
   }).isRequired,
-  onMovieClick: PropTypes.func.isRequired
+  // onMovieClick: PropTypes.func.isRequired
 };

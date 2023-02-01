@@ -6,18 +6,18 @@ Using React, build the client-side for an app called myFlix based on its
 existing server-side code (REST API and database).
 
 ### User Stories
-● As a user, I want to be able to access information about movies so that I can learn more
++ As a user, I want to be able to access information about movies so that I can learn more
 about movies I’ve watched or am interested in.
 
-● As a user, I want to be able to create a profile so I can save data about my favorite movies.
++ As a user, I want to be able to create a profile so I can save data about my favorite movies.
 
 ### Essential Views & Features:
 
 #### Main view
 
-● Returns ALL movies to the user (each movie item with an image, title, and description)
++ Returns ALL movies to the user (each movie item with an image, title, and description)
 
-● Filtering the list of movies with a “search” feature
++ Filtering the list of movies with a “search” feature
 
 ● Ability to select a movie for more details
 

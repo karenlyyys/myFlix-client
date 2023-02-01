@@ -13,7 +13,7 @@ about movies I’ve watched or am interested in.
 
 ### Essential Views & Features:
 
-Main view
+#### Main view
 
 ● Returns ALL movies to the user (each movie item with an image, title, and description)
 
@@ -27,21 +27,21 @@ Main view
 
 Page 2
 
-Single Movie view
+#### Single Movie view
 
 ● Returns data (description, genre, director, image) about a single movie to the user
 
 ● Allows users to add a movie to their list of favorites
 
-Login view
+#### Login view
 
 ● Allows users to log in with a username and password
 
-Signup view
+#### Signup view
 
 ● Allows new users to register (username, password, email, date of birth)
 
-Profile view
+#### Profile view
 
 ● Displays user registration details
 

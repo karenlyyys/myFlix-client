@@ -8,6 +8,7 @@ existing server-side code (REST API and database).
 ### THIS APP RUNS LOCALLY
 
 Command: npm run start
+
 Backend is github.com/karenlyyys/movie_api
 
 ### User Stories

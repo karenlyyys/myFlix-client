@@ -7,6 +7,9 @@ existing server-side code (REST API and database).
 
 ### THIS APP RUNS LOCALLY
 
+Command: npm run start
+Backend is github.com/karenlyyys/movie_api
+
 ### User Stories
 + As a user, I want to be able to access information about movies so that I can learn more
 about movies I’ve watched or am interested in.

@@ -11,6 +11,8 @@ Command: npm run start
 
 Backend is github.com/karenlyyys/movie_api
 
+Backend must be ran in order for this app to run
+
 ### User Stories
 + As a user, I want to be able to access information about movies so that I can learn more
 about movies I’ve watched or am interested in.

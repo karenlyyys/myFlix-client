@@ -44,7 +44,7 @@ export function LoginView(props) {
     if (isReq) {
       // POST request by passing username and password
       axios
-        .post('https://movie-api-karelyss.herokuapp.com/login', {
+        .post('https://localhost:8080/login', {
           Username: username,
           Password: password,
         })

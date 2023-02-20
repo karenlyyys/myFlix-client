@@ -27,7 +27,7 @@ export const ProfileView = ({
   useEffect(() => {
     axios
       .get(
-        'https://movie-api-karelyss.herokuapp.com/users/' + localStorage.getItem('user'),
+        'https://localhost:8080/users/' + localStorage.getItem('user'),
         {
           headers: {
             Authorization: 'Bearer ' + localStorage.getItem('token'),
@@ -51,7 +51,7 @@ export const ProfileView = ({
       Email: newEmail,
     };
     axios
-      .put(`https://movie-api-karelyss.herokuapp.com/users/${localStorage.user}`, data, {
+      .put(`https://localhost:8080/users/${localStorage.user}`, data, {
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem('token'),
         },
@@ -71,7 +71,7 @@ export const ProfileView = ({
     e.preventDefault();
 
     axios
-      .delete(`https://movie-api-karelyss.herokuapp.com/users/${localStorage.user}`, {
+      .delete(`https://localhost:8080/users/${localStorage.user}`, {
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem('token'),
         },
@@ -90,7 +90,7 @@ export const ProfileView = ({
   const removeFromFavorites = (movieId) => {
     axios
       .delete(
-        `https://movie-api-karelyss.herokuapp.com/users/${localStorage.user}/movies/${movieId}`,
+        `https://localhost:8080/users/${localStorage.user}/movies/${movieId}`,
         {
           headers: {
             Authorization: 'Bearer ' + localStorage.getItem('token'),

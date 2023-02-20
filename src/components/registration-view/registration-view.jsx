@@ -55,7 +55,7 @@ export function RegistrationView(props) {
 
     if (isReq) {
       axios
-        .post('https://movie-api-karelyss.herokuapp.com/users', {
+        .post('https://localhost:8080/users', {
           Username: username,
           Password: password,
           Email: email,

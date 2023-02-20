@@ -33,7 +33,7 @@ class MainView extends React.Component {
   // query myFlix API /movies endpoint with a get request
   componentDidMount() {
     axios
-      .get('https://movie-api-karelyss.herokuapp.com/movies')
+      .get('https://localhost:8080/movies')
       .then((response) => {
         this.setState({
           movies: response.data,
@@ -94,7 +94,7 @@ class MainView extends React.Component {
   // GET request to 'movies' ebdpoint
   getMovies(token) {
     axios
-      .get('https://movie-api-karelyss.herokuapp.com/movies', {
+      .get('https://localhost:8080/movies', {
         // passing bearer authorization, this allows authenticated request to API
         headers: { Authorization: `Bearer ${token}` },
       })
